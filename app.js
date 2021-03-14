@@ -3,6 +3,7 @@ window.onload = function() {
 }
 
 function getCoronaVirusStats() {
+  //fetches data with United States set as default
   fetch('https://coronavirus-tracker-api.herokuapp.com/v2/locations/249')
   .then(function(resp) { return resp.json() })
   .then(function(data) {
@@ -11,6 +12,7 @@ function getCoronaVirusStats() {
     let confirmedCases = data.location.latest.confirmed;
     let deaths = data.location.latest.deaths;
 
+   //loads data to HTML
     document.getElementById('population').innerHTML = population.toLocaleString('en');
     document.getElementById('update').innerHTML = update.substr(0, 10);
     document.getElementById('cases').innerHTML = confirmedCases.toLocaleString('en');
@@ -23,5 +25,6 @@ function getCoronaVirusStats() {
     console.log("error");
   })
 
+  //refreshes data once every 12 hours, or 43200000 ms
   setTimeout(getCoronaVirusStats, 43200000)
 }
